@@ -5,6 +5,7 @@ class BidsController < ApplicationController
     @auction = Auction.find params[:auction_id]
     @bid = Bid.new bid_params
     @bid.auction = @auction
+    @bid.user = current_user
     if @bid.amount > @auction.current_price
       @bid.save
       @auction.update(current_price: @bid.amount)

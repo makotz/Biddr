@@ -13,7 +13,14 @@
   <% end %>
   <% else %>
   <%= simple_form_for(@auction, url: auction_path(@auction), method: :patch) do |f| %>
-    <%= f.input :published? %>
+    <%= f.input :published %>
     <%= f.button :submit %>
   <% end %>
+<% end %>
+
+<h2>Recent Bids</h2>
+
+<% @bids.each do |bid| %>
+  <%= bid.amount %>, Made by: <%= bid.user.name %>
+  <hr>
 <% end %>

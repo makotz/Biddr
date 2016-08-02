@@ -19,16 +19,24 @@ class AuctionsController < ApplicationController
   def show
     @auction = Auction.find params[:id]
     @bid = Bid.new
+    @bids = @auction.bids
   end
 
   def index
-    @auctions = Auction.where(published?: true)
+    @auctions = Auction.where(published: true)
+  end
+
+  def update
+    @auction = Auction.find params[:id]
+    if @auction.update auction_params
+      redirect_to auction_path(@auction)
+    end
   end
 
   private
 
   def auction_params
-    params.require(:auction).permit(:title, :details, :enddate, :reserve, :published?)
+    params.require(:auction).permit(:title, :details, :enddate, :reserve, :published)
   end
 
 end

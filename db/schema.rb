@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802191416) do
+ActiveRecord::Schema.define(version: 20160802211220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 20160802191416) do
     t.string   "title"
     t.text     "details"
     t.float    "reserve"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.float    "current_price", default: 0.0
     t.date     "enddate"
     t.integer  "user_id"
-    t.boolean  "published?",    default: false
+    t.boolean  "published"
   end
 
   add_index "auctions", ["user_id"], name: "index_auctions_on_user_id", using: :btree
@@ -35,9 +35,11 @@ ActiveRecord::Schema.define(version: 20160802191416) do
     t.integer  "auction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   add_index "bids", ["auction_id"], name: "index_bids_on_auction_id", using: :btree
+  add_index "bids", ["user_id"], name: "index_bids_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -51,4 +53,5 @@ ActiveRecord::Schema.define(version: 20160802191416) do
 
   add_foreign_key "auctions", "users"
   add_foreign_key "bids", "auctions"
+  add_foreign_key "bids", "users"
 end
