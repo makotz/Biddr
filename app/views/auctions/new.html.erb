@@ -1,0 +1,9 @@
+<h1>Create New Auction</h1>
+
+<%= simple_form_for @auction do |f| %>
+  <%= f.input :title, label: "Auction Item" %>
+  <%= f.input :details %>
+  <%= f.input :reserve %>
+  <%= f.input :enddate, :as => :datetime_picker %>
+  <%= f.button :submit %>
+<% end %>
