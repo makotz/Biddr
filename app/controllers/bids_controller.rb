@@ -1,4 +1,5 @@
 class BidsController < ApplicationController
+  before_action :authenticate_user!
 
   def create
     @auction = Auction.find params[:auction_id]

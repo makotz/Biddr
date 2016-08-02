@@ -4,8 +4,16 @@
 <h2>Current Price: $<%= @auction.current_price %></h2>
 <h2>Reserve Price: $<%= @auction.reserve %></h2>
 
-<h2>Bid for this product</h2>
-<%= simple_form_for(@bid, url: auction_bids_path(@auction), method: :post) do |f| %>
-  <%= f.input :amount %>
-  <%= f.button :submit %>
+
+<% if !auction_owner?(@auction) %>
+  <h2>Bid for this product</h2>
+  <%= simple_form_for(@bid, url: auction_bids_path(@auction), method: :post) do |f| %>
+    <%= f.input :amount %>
+    <%= f.button :submit %>
+  <% end %>
+  <% else %>
+  <%= simple_form_for(@auction, url: auction_path(@auction), method: :patch) do |f| %>
+    <%= f.input :published? %>
+    <%= f.button :submit %>
+  <% end %>
 <% end %>
